@@ -2,6 +2,7 @@
 
 namespace BenRowan\VCsvStream\Tests\Small;
 
+use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
 use BenRowan\VCsvStream\Rows\Header;
 use BenRowan\VCsvStream\Rows\NoHeader;
 use BenRowan\VCsvStream\Rows\Record;
@@ -15,44 +16,10 @@ class VCsvStreamTest extends TestCase
     public const HEADER_3 = 'Coulumn Three';
 
     /**
-     * @throws \BenRowan\VCsvStream\Exceptions\VCsvStreamException
-     */
-    private function setupWithHeader(): void
-    {
-        VCsvStream::setup();
-
-        $header = new Header();
-
-        $header
-            ->addValueColumn(self::HEADER_1, 1)
-            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
-            ->addColumn(self::HEADER_3);
-
-        VCsvStream::setHeader($header);
-    }
-
-    /**
-     * @throws \BenRowan\VCsvStream\Exceptions\VCsvStreamException
-     */
-    private function setupWithNoHeader(): void
-    {
-        VCsvStream::setup();
-
-        $header = new NoHeader();
-
-        $header
-            ->addValueColumn(self::HEADER_1, 1)
-            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
-            ->addColumn(self::HEADER_3);
-
-        VCsvStream::setHeader($header);
-    }
-
-    /**
      * Run the code...
      *
      * @test
-     * @throws \BenRowan\VCsvStream\Exceptions\VCsvStreamException
+     * @throws VCsvStreamException
      */
     public function iCanGetDataFromStream(): void
     {
@@ -88,7 +55,7 @@ class VCsvStreamTest extends TestCase
      * Run the code...
      *
      * @test
-     * @throws \BenRowan\VCsvStream\Exceptions\VCsvStreamException
+     * @throws VCsvStreamException
      */
     public function iCanGetDataFromStreamWithNoHeader(): void
     {
@@ -118,5 +85,39 @@ class VCsvStreamTest extends TestCase
         }
 
         $this->assertCount(10020, $rows);
+    }
+
+    /**
+     * @throws VCsvStreamException
+     */
+    private function setupWithHeader(): void
+    {
+        VCsvStream::setup();
+
+        $header = new Header();
+
+        $header
+            ->addValueColumn(self::HEADER_1, 1)
+            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
+            ->addColumn(self::HEADER_3);
+
+        VCsvStream::setHeader($header);
+    }
+
+    /**
+     * @throws VCsvStreamException
+     */
+    private function setupWithNoHeader(): void
+    {
+        VCsvStream::setup();
+
+        $header = new NoHeader();
+
+        $header
+            ->addValueColumn(self::HEADER_1, 1)
+            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
+            ->addColumn(self::HEADER_3);
+
+        VCsvStream::setHeader($header);
     }
 }
