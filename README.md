@@ -38,7 +38,7 @@ $header
 VCsvStream::setHeader($header);
 ```
 
-We are doing 3 things when configuring the header:
+We're doing 3 things here:
 
 * Telling CSV stream how many columns we want
 * Telling CSV stream what the names of the columns should be (even if we're using `NoHeader`)
@@ -104,7 +104,7 @@ to worry about the others (notice no config for `self::HEADER_1` above).
 
 ### Read
 
-Now that we've setup the stream we can use it like we would with any normal CSV file.
+Now that we've setup the stream we can use it like we would any normal CSV file.
 
 ```php
 $vCsv = new SplFileObject('vcsv://fixture.csv');
