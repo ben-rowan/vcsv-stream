@@ -3,7 +3,6 @@
 namespace BenRowan\VCsvStream\Tests\Small\Buffer;
 
 use BenRowan\VCsvStream\Buffer\Buffer;
-use BenRowan\VCsvStream\Buffer\BufferInterface;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 use function strlen;
 use function substr;
@@ -14,7 +13,7 @@ class BufferTest extends AbstractTestCase
     private const FIXTURE_CONTENT       = 'Some Content';
 
     /**
-     * @var BufferInterface
+     * @var Buffer
      */
     private $buffer;
 

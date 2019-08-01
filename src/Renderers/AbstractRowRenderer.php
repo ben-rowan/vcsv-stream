@@ -9,12 +9,12 @@ abstract class AbstractRowRenderer implements RowRendererInterface
     /**
      * Handles the transformation of column data into a CSV row string.
      *
-     * @param Stream\ConfigInterface $config
+     * @param Stream\Config $config
      * @param array $columns
      *
      * @return string
      */
-    protected function renderRow(Stream\ConfigInterface $config, array $columns): string
+    protected function renderRow(Stream\Config $config, array $columns): string
     {
         $row = implode(
             $config->getDelimiter(),

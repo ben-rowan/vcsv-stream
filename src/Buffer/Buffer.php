@@ -2,7 +2,10 @@
 
 namespace BenRowan\VCsvStream\Buffer;
 
-class Buffer implements BufferInterface
+use function strlen;
+use function substr;
+
+class Buffer
 {
     private $buffer = '';
 
@@ -13,7 +16,7 @@ class Buffer implements BufferInterface
      */
     public function currentSizeInBytes(): int
     {
-        return \strlen($this->buffer);
+        return strlen($this->buffer);
     }
 
     /**
@@ -24,12 +27,13 @@ class Buffer implements BufferInterface
     public function clean(int $bytes): void
     {
         if ($bytes < $this->currentSizeInBytes()) {
-            $this->buffer = \substr($this->buffer, $bytes);
+            $this->buffer = substr($this->buffer, $bytes);
             return;
         }
 
         // If the number of bytes to be cleaned are greater then the current
         // number of bytes in the buffer then we simple clean all content.
+
         $this->buffer = '';
     }
 
@@ -42,7 +46,7 @@ class Buffer implements BufferInterface
      */
     public function read(int $bytes): string
     {
-        return \substr($this->buffer, 0, $bytes);
+        return substr($this->buffer, 0, $bytes);
     }
 
     /**

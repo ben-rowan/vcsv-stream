@@ -17,14 +17,14 @@ class Record extends AbstractRowRenderer
      *  - (1st) Record generator
      *  - (2nd) Header generator
      *
-     * @param Stream\ConfigInterface $config
-     * @param Stream\StateInterface $streamState
+     * @param Stream\Config $config
+     * @param Stream\State $streamState
      *
      * @return string
      *
      * @throws VCsvStreamException
      */
-    public function render(Stream\ConfigInterface $config, Stream\StateInterface $streamState): string
+    public function render(Stream\Config $config, Stream\State $streamState): string
     {
         if (! $streamState->hasRecords()) {
             return '';

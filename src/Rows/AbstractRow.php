@@ -2,6 +2,7 @@
 
 namespace BenRowan\VCsvStream\Rows;
 
+use function array_keys;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
 use BenRowan\VCsvStream\Generators\GeneratorFactory;
 use BenRowan\VCsvStream\Generators\GeneratorInterface;
@@ -33,7 +34,7 @@ abstract class AbstractRow implements RowInterface
 
     public function getColumnNames(): array
     {
-        return \array_keys($this->columns);
+        return array_keys($this->columns);
     }
 
     public function hasColumnGenerator(string $name): bool

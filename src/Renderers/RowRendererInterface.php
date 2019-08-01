@@ -6,5 +6,5 @@ use BenRowan\VCsvStream\Stream;
 
 interface RowRendererInterface
 {
-    public function render(Stream\ConfigInterface $config, Stream\StateInterface $streamState): string;
+    public function render(Stream\Config $config, Stream\State $streamState): string;
 }

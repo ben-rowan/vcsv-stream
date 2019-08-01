@@ -4,8 +4,9 @@ namespace BenRowan\VCsvStream\Stream;
 
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
 use BenRowan\VCsvStream\Rows\RowInterface;
+use function count;
 
-class State implements StateInterface
+class State
 {
     /**
      * @var RowInterface The header to be used for the CSV file.
@@ -81,7 +82,7 @@ class State implements StateInterface
      */
     public function hasRecords(): bool
     {
-        return \count($this->records) !== $this->currentRecord;
+        return count($this->records) !== $this->currentRecord;
     }
 
     /**

@@ -8,12 +8,13 @@ use BenRowan\VCsvStream\Rows\NoHeader;
 use BenRowan\VCsvStream\Rows\Record;
 use BenRowan\VCsvStream\VCsvStream;
 use PHPUnit\Framework\TestCase;
+use SplFileObject;
 
 class VCsvStreamTest extends TestCase
 {
     public const HEADER_1 = 'Column One';
     public const HEADER_2 = 'Column Two';
-    public const HEADER_3 = 'Coulumn Three';
+    public const HEADER_3 = 'Column Three';
 
     /**
      * Run the code...
@@ -41,7 +42,7 @@ class VCsvStreamTest extends TestCase
 
         VCsvStream::addRecords($records);
 
-        $vCsv = new \SplFileObject('vcsv://fixture.csv');
+        $vCsv = new SplFileObject('vcsv://fixture.csv');
 
         $rows = [];
         while ($row = $vCsv->fgetcsv()) {
@@ -77,7 +78,7 @@ class VCsvStreamTest extends TestCase
 
         VCsvStream::addRecords($records);
 
-        $vCsv = new \SplFileObject('vcsv://fixture.csv');
+        $vCsv = new SplFileObject('vcsv://fixture.csv');
 
         $rows = [];
         while ($row = $vCsv->fgetcsv()) {

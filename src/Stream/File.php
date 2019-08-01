@@ -2,12 +2,10 @@
 
 namespace BenRowan\VCsvStream\Stream;
 
-class File implements FileInterface
+class File
 {
     private const FILE_USER_ROOT  = 0;
-
     private const FILE_GROUP_ROOT = 0;
-
     private const FILE_MODE       = 0666;
 
     private $time;
@@ -21,26 +19,6 @@ class File implements FileInterface
         $this->time          = \time();
         $this->uidFuncExists = \function_exists('posix_getuid');
         $this->gidFuncExists = \function_exists('posix_getgid');
-    }
-
-    /**
-     * Get's the current processes UID if possible. Returns 0 (root) if not.
-     *
-     * @return int
-     */
-    private function getUid(): int
-    {
-        return $this->uidFuncExists ? posix_getuid() : self::FILE_USER_ROOT;
-    }
-
-    /**
-     * Get's the current processes GID if possible. Returns 0 (root) if not.
-     *
-     * @return int
-     */
-    private function getGid(): int
-    {
-        return $this->gidFuncExists ? posix_getgid() : self::FILE_GROUP_ROOT;
     }
 
     /**
@@ -70,5 +48,25 @@ class File implements FileInterface
             array_values($stat),
             $stat
         );
+    }
+
+    /**
+     * Get's the current processes UID if possible. Returns 0 (root) if not.
+     *
+     * @return int
+     */
+    private function getUid(): int
+    {
+        return $this->uidFuncExists ? posix_getuid() : self::FILE_USER_ROOT;
+    }
+
+    /**
+     * Get's the current processes GID if possible. Returns 0 (root) if not.
+     *
+     * @return int
+     */
+    private function getGid(): int
+    {
+        return $this->gidFuncExists ? posix_getgid() : self::FILE_GROUP_ROOT;
     }
 }

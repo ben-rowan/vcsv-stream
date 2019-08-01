@@ -10,17 +10,17 @@ use BenRowan\VCsvStream\Stream;
 class VCsvStream
 {
     /**
-     * @var Stream\FileInterface
+     * @var Stream\File
      */
     private static $file;
 
     /**
-     * @var Stream\ConfigInterface
+     * @var Stream\Config
      */
     private static $config;
 
     /**
-     * @var Stream\StateInterface
+     * @var Stream\State
      */
     private static $state;
 
@@ -45,9 +45,9 @@ class VCsvStream
     /**
      * Gets the current representation of the file.
      *
-     * @return Stream\FileInterface
+     * @return Stream\File
      */
-    public static function getFile(): Stream\FileInterface
+    public static function getFile(): Stream\File
     {
         return self::$file;
     }
@@ -55,9 +55,9 @@ class VCsvStream
     /**
      * Gets the current configuration.
      *
-     * @return Stream\ConfigInterface
+     * @return Stream\Config
      */
-    public static function getConfig(): Stream\ConfigInterface
+    public static function getConfig(): Stream\Config
     {
         return self::$config;
     }
@@ -65,9 +65,9 @@ class VCsvStream
     /**
      * Gets the current stream state.
      *
-     * @return Stream\StateInterface
+     * @return Stream\State
      */
-    public static function getState(): Stream\StateInterface
+    public static function getState(): Stream\State
     {
         return self::$state;
     }

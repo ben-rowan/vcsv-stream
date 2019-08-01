@@ -11,14 +11,14 @@ class Header extends AbstractRowRenderer
     /**
      * Renders the current header data as a CSV row string.
      *
-     * @param Stream\ConfigInterface $config
-     * @param Stream\StateInterface $streamState
+     * @param Stream\Config $config
+     * @param Stream\State $streamState
      *
      * @return string
      *
      * @throws VCsvStreamException
      */
-    public function render(Stream\ConfigInterface $config, Stream\StateInterface $streamState): string
+    public function render(Stream\Config $config, Stream\State $streamState): string
     {
         if (! $streamState->hasHeader()) {
             throw new VCsvStreamException(

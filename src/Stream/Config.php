@@ -2,7 +2,7 @@
 
 namespace BenRowan\VCsvStream\Stream;
 
-class Config implements ConfigInterface
+class Config
 {
     /**
      * Configuration keys.

@@ -5,8 +5,10 @@ namespace BenRowan\VCsvStream\Stream;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
 use BenRowan\VCsvStream\VCsvStreamWrapper;
 
-class Manager implements ManagerInterface
+class Manager
 {
+    public const PROTOCOL = 'vcsv';
+
     public static function streamIsRegistered(): bool
     {
         return \in_array(self::PROTOCOL, \stream_get_wrappers(), true);
