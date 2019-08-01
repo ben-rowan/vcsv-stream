@@ -5,6 +5,8 @@ namespace BenRowan\VCsvStream\Tests\Small\Buffer;
 use BenRowan\VCsvStream\Buffer\Buffer;
 use BenRowan\VCsvStream\Buffer\BufferInterface;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
+use function strlen;
+use function substr;
 
 class BufferTest extends AbstractTestCase
 {
@@ -26,14 +28,14 @@ class BufferTest extends AbstractTestCase
      */
     public function iGetTheCorrectBufferSizeInBytes(): void
     {
-        $expectedBefore = \strlen(self::FIXTURE_EMPTY_CONTENT);
+        $expectedBefore = strlen(self::FIXTURE_EMPTY_CONTENT);
         $actualBefore   = $this->buffer->currentSizeInBytes();
 
         $this->assertSame($expectedBefore, $actualBefore);
 
         $this->buffer->add(self::FIXTURE_CONTENT);
 
-        $expectedAfter = \strlen(self::FIXTURE_CONTENT);
+        $expectedAfter = strlen(self::FIXTURE_CONTENT);
         $actualAfter   = $this->buffer->currentSizeInBytes();
 
         $this->assertSame($expectedAfter, $actualAfter);
@@ -71,7 +73,7 @@ class BufferTest extends AbstractTestCase
         $refProp->setValue($this->buffer, self::FIXTURE_CONTENT);
 
         $expected = self::FIXTURE_CONTENT;
-        $actual   = $this->buffer->read(\strlen(self::FIXTURE_CONTENT));
+        $actual   = $this->buffer->read(strlen(self::FIXTURE_CONTENT));
 
         $this->assertSame($expected, $actual);
     }
@@ -86,7 +88,7 @@ class BufferTest extends AbstractTestCase
 
         $refProp->setValue($this->buffer, self::FIXTURE_CONTENT);
 
-        $bytesToRead = \strlen(self::FIXTURE_CONTENT) * 2;
+        $bytesToRead = strlen(self::FIXTURE_CONTENT) * 2;
 
         $expected = self::FIXTURE_CONTENT;
         $actual   = $this->buffer->read($bytesToRead);
@@ -109,14 +111,14 @@ class BufferTest extends AbstractTestCase
 
         $refProp->setValue($this->buffer, self::FIXTURE_CONTENT);
 
-        $expectedBefore = \strlen(self::FIXTURE_CONTENT);
+        $expectedBefore = strlen(self::FIXTURE_CONTENT);
         $actualBefore   = $this->buffer->currentSizeInBytes();
 
         $this->assertSame($expectedBefore, $actualBefore);
 
         $this->buffer->clean($bytesToClean);
 
-        $expectedAfter = \strlen($expectedBuffer);
+        $expectedAfter = strlen($expectedBuffer);
         $actualAfter   = $this->buffer->currentSizeInBytes();
 
         $this->assertSame($expectedAfter, $actualAfter);
@@ -127,7 +129,7 @@ class BufferTest extends AbstractTestCase
         return [
             'clean_bytes_less_than_buffer_bytes' => [
                 2,
-                \substr(self::FIXTURE_CONTENT, 2)
+                substr(self::FIXTURE_CONTENT, 2)
             ],
             'clean_bytes_greater_than_buffer_bytes' => [
                 100,
