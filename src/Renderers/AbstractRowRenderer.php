@@ -19,7 +19,7 @@ abstract class AbstractRowRenderer implements RowRendererInterface
         $row = implode(
             $config->getDelimiter(),
             array_map(
-                function (string $value) use ($config) {
+                function ($value) use ($config) {
                     if (is_numeric($value)) {
                         return (string) $value;
                     }

@@ -3,13 +3,13 @@
 namespace BenRowan\VCsvStream\Tests\Small\Stream;
 
 use BenRowan\VCsvStream\Stream\File;
-use BenRowan\VCsvStream\Stream\FileInterface;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
+use function function_exists;
 
 class FileTest extends AbstractTestCase
 {
     /**
-     * @var FileInterface
+     * @var File
      */
     private $file;
 
@@ -23,7 +23,7 @@ class FileTest extends AbstractTestCase
      */
     public function iGetMyUid(): void
     {
-        if (! \function_exists('posix_getuid')) {
+        if (! function_exists('posix_getuid')) {
             $this->markTestSkipped('Function posix_getuid does not exist.');
         }
 
@@ -38,7 +38,7 @@ class FileTest extends AbstractTestCase
      */
     public function iGetMyGid(): void
     {
-        if (! \function_exists('posix_getgid')) {
+        if (! function_exists('posix_getgid')) {
             $this->markTestSkipped('Function posix_getgid does not exist.');
         }
 
