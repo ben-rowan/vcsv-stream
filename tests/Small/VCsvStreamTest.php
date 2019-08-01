@@ -17,14 +17,21 @@ class VCsvStreamTest extends TestCase
     public const HEADER_3 = 'Column Three';
 
     /**
+     * @throws VCsvStreamException
+     */
+    public function setUp()
+    {
+        VCsvStream::setup();
+    }
+
+    /**
      * Run the code...
      *
      * @test
-     * @throws VCsvStreamException
      */
     public function iCanGetDataFromStream(): void
     {
-        $this->setupWithHeader();
+        $this->withHeader();
 
         $records = [];
 
@@ -56,11 +63,10 @@ class VCsvStreamTest extends TestCase
      * Run the code...
      *
      * @test
-     * @throws VCsvStreamException
      */
     public function iCanGetDataFromStreamWithNoHeader(): void
     {
-        $this->setupWithNoHeader();
+        $this->withoutHeader();
 
         $records = [];
 
@@ -88,13 +94,8 @@ class VCsvStreamTest extends TestCase
         $this->assertCount(10020, $rows);
     }
 
-    /**
-     * @throws VCsvStreamException
-     */
-    private function setupWithHeader(): void
+    private function withHeader(): void
     {
-        VCsvStream::setup();
-
         $header = new Header();
 
         $header
@@ -105,13 +106,8 @@ class VCsvStreamTest extends TestCase
         VCsvStream::setHeader($header);
     }
 
-    /**
-     * @throws VCsvStreamException
-     */
-    private function setupWithNoHeader(): void
+    private function withoutHeader(): void
     {
-        VCsvStream::setup();
-
         $header = new NoHeader();
 
         $header

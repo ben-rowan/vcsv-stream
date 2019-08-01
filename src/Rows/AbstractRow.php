@@ -18,9 +18,9 @@ abstract class AbstractRow implements RowInterface
         return $this;
     }
 
-    public function addFakerColumn(string $name, string $property, bool $isUnique = false): RowInterface
+    public function addFakerColumn(string $name, string $formatter, bool $isUnique = false): RowInterface
     {
-        $this->columns[$name] = GeneratorFactory::createFakerValue($property, $isUnique);
+        $this->columns[$name] = GeneratorFactory::createFakerValue($formatter, $isUnique);
 
         return $this;
     }

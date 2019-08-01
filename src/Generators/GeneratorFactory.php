@@ -34,13 +34,13 @@ class GeneratorFactory
     /**
      * Create a faker value generator.
      *
-     * @param string $property The faker property to use to generate your value.
+     * @param string $formatter The faker property to use to generate your value.
      * @param bool $isUnique Whether you need the value to be unique.
      *
      * @return GeneratorInterface
      */
-    public static function createFakerValue(string $property = 'text', bool $isUnique = false): GeneratorInterface
+    public static function createFakerValue(string $formatter = 'text', bool $isUnique = false): GeneratorInterface
     {
-        return new FakerValue(self::$faker, $property, $isUnique);
+        return new FakerValue(self::$faker, $formatter, $isUnique);
     }
 }
