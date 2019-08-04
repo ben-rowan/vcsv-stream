@@ -3,6 +3,9 @@
 namespace BenRowan\VCsvStream\Parser;
 
 use BenRowan\VCsvStream\Exceptions\ValidationException;
+use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\YamlValidatorFactory;
+use BenRowan\VCsvStream\Factory\RowFactory;
+use BenRowan\VCsvStream\Factory\RowFactoryInterface;
 use BenRowan\VCsvStream\Parser\Validate\Yaml\YamlValidator;
 use BenRowan\VCsvStream\Row\Header;
 use BenRowan\VCsvStream\Row\Record;
@@ -32,12 +35,23 @@ class YamlParser
      * @var YamlValidator
      */
     private $validator;
+    /**
+     * @var RowFactory
+     */
+    private $rowFactory;
 
-    public function __construct()
+    public function __construct(
+        YamlValidatorFactory $validatorFactory,
+        RowFactoryInterface $rowFactory
+    )
     {
-        $this->validator = new YamlValidator();
-        $this->header    = new Header();
-        $this->records   = [new Record(10)];
+        $this->validator  = $validatorFactory->create();
+        $this->rowFactory = $rowFactory;
+
+        $this->header  = $this->rowFactory->createHeader(true);
+        $this->records = [$this->rowFactory->createRecord(10)];
+
+
     }
 
     /**

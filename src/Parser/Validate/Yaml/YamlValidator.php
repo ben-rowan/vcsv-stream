@@ -11,9 +11,11 @@ class YamlValidator
      */
     private $rootValidator;
 
-    public function __construct()
+    public function __construct(
+        RootValidator $rootValidator
+    )
     {
-        $this->rootValidator = new RootValidator();
+        $this->rootValidator = $rootValidator;
     }
 
     /**
