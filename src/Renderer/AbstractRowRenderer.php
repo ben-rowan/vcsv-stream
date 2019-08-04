@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Renderers;
+namespace BenRowan\VCsvStream\Renderer;
 
 use BenRowan\VCsvStream\Stream;
 

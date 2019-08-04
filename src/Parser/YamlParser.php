@@ -4,8 +4,8 @@ namespace BenRowan\VCsvStream\Parser;
 
 use BenRowan\VCsvStream\Exceptions\ValidationException;
 use BenRowan\VCsvStream\Parser\Validate\Yaml\YamlValidator;
-use BenRowan\VCsvStream\Rows\Header;
-use BenRowan\VCsvStream\Rows\Record;
+use BenRowan\VCsvStream\Row\Header;
+use BenRowan\VCsvStream\Row\Record;
 use Symfony\Component\Yaml\Yaml;
 
 class YamlParser
@@ -36,6 +36,8 @@ class YamlParser
     public function __construct()
     {
         $this->validator = new YamlValidator();
+        $this->header    = new Header();
+        $this->records   = [new Record(10)];
     }
 
     /**

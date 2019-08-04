@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Generators;
+namespace BenRowan\VCsvStream\Generator;
 
 interface GeneratorInterface
 {

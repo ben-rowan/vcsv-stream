@@ -4,7 +4,7 @@ namespace BenRowan\VCsvStream;
 
 use BenRowan\VCsvStream\Buffer\Buffer;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Renderers;
+use BenRowan\VCsvStream\Renderer;
 use BenRowan\VCsvStream\Stream;
 
 class VCsvStreamWrapper
@@ -15,20 +15,20 @@ class VCsvStreamWrapper
     private $buffer;
 
     /**
-     * @var Renderers\Header
+     * @var Renderer\Header
      */
     private $headerRenderer;
 
     /**
-     * @var Renderers\Record
+     * @var Renderer\Record
      */
     private $recordRenderer;
 
     public function __construct()
     {
         $this->buffer         = new Buffer();
-        $this->headerRenderer = new Renderers\Header();
-        $this->recordRenderer = new Renderers\Record();
+        $this->headerRenderer = new Renderer\Header();
+        $this->recordRenderer = new Renderer\Record();
     }
 
     /**

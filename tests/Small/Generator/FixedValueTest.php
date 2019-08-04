@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Tests\Small\Generators;
+namespace BenRowan\VCsvStream\Tests\Small\Generator;
 
-use BenRowan\VCsvStream\Generators\FixedValue;
+use BenRowan\VCsvStream\Generator\FixedValue;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 
 class FixedValueTest extends AbstractTestCase

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Rows;
+namespace BenRowan\VCsvStream\Row;
 
 class Record extends AbstractRow
 {

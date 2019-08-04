@@ -24,5 +24,8 @@ class YamlParserTest extends AbstractTestCase
         $parser = $this->getClass();
 
         $parser->parse(self::FIXTURE_VALID);
+
+        $header = $parser->getHeader();
+        $records = $parser->getRecords();
     }
 }

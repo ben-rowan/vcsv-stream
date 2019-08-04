@@ -3,8 +3,8 @@
 namespace BenRowan\VCsvStream;
 
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Generators\GeneratorFactory;
-use BenRowan\VCsvStream\Rows\RowInterface;
+use BenRowan\VCsvStream\Generator\GeneratorFactory;
+use BenRowan\VCsvStream\Row\RowInterface;
 use BenRowan\VCsvStream\Stream;
 
 class VCsvStream

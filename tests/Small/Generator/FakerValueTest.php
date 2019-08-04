@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Tests\Small\Generators;
+namespace BenRowan\VCsvStream\Tests\Small\Generator;
 
-use BenRowan\VCsvStream\Generators\FakerValue;
+use BenRowan\VCsvStream\Generator\FakerValue;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 use Faker;
+use OverflowException;
 
 class FakerValueTest extends AbstractTestCase
 {
@@ -46,8 +47,9 @@ class FakerValueTest extends AbstractTestCase
     public function iCanGenerateUniqueValues(): void
     {
         // Faker throws this when it runs out of unique values.
-        $this->expectException(\OverflowException::class);
+        $this->expectException(OverflowException::class);
 
+        // Can only return digits 0-9
         $fakerValue = new FakerValue($this->faker, 'randomDigitNotNull', true);
 
         while (true) {

@@ -3,7 +3,7 @@
 namespace BenRowan\VCsvStream\Stream;
 
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Rows\RowInterface;
+use BenRowan\VCsvStream\Row\RowInterface;
 use function count;
 
 class State

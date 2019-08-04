@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Renderers;
+namespace BenRowan\VCsvStream\Renderer;
 
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
 use BenRowan\VCsvStream\Stream;
-use BenRowan\VCsvStream\Rows\Header as HeaderRow;
-use BenRowan\VCsvStream\Rows\Record as RecordRow;
+use BenRowan\VCsvStream\Row\Header as HeaderRow;
+use BenRowan\VCsvStream\Row\Record as RecordRow;
 
 class Record extends AbstractRowRenderer
 {

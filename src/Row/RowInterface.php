@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Rows;
+namespace BenRowan\VCsvStream\Row;
 
-use BenRowan\VCsvStream\Generators\GeneratorInterface;
+use BenRowan\VCsvStream\Generator\GeneratorInterface;
 
 interface RowInterface
 {

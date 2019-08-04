@@ -3,9 +3,9 @@
 namespace BenRowan\VCsvStream\Tests\Small;
 
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Rows\Header;
-use BenRowan\VCsvStream\Rows\NoHeader;
-use BenRowan\VCsvStream\Rows\Record;
+use BenRowan\VCsvStream\Row\Header;
+use BenRowan\VCsvStream\Row\NoHeader;
+use BenRowan\VCsvStream\Row\Record;
 use BenRowan\VCsvStream\VCsvStream;
 use PHPUnit\Framework\TestCase;
 use SplFileObject;

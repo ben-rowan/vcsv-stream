@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Rows;
+namespace BenRowan\VCsvStream\Row;
 
 use function array_keys;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Generators\GeneratorFactory;
-use BenRowan\VCsvStream\Generators\GeneratorInterface;
+use BenRowan\VCsvStream\Generator\GeneratorFactory;
+use BenRowan\VCsvStream\Generator\GeneratorInterface;
 
 abstract class AbstractRow implements RowInterface
 {
