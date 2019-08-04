@@ -11,8 +11,8 @@ class GenerateCsvCommand extends Command
 {
     public const NAME = 'generate:csv';
 
-    public const ARG_CONFIG_FILE = 'config_file';
-    public const ARG_OUTPUT_FILE = 'output_file';
+    public const ARG_CONFIG_PATH = 'config_path';
+    public const ARG_OUTPUT_PATH = 'output_path';
 
     protected function configure()
     {
@@ -20,12 +20,12 @@ class GenerateCsvCommand extends Command
             ->setName(self::NAME)
             ->setDescription('Generate a CSV fixture')
             ->addArgument(
-                self::ARG_CONFIG_FILE,
+                self::ARG_CONFIG_PATH,
                 InputArgument::REQUIRED,
                 'The YAML config for your CSV'
             )
             ->addArgument(
-                self::ARG_OUTPUT_FILE,
+                self::ARG_OUTPUT_PATH,
                 InputArgument::REQUIRED,
                 "The generated CSV fixture"
             )
@@ -36,7 +36,7 @@ class GenerateCsvCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configFile = (string)$input->getArgument(self::ARG_CONFIG_FILE);
-        $outputFile = (string)$input->getArgument(self::ARG_OUTPUT_FILE);
+        $configPath = (string)$input->getArgument(self::ARG_CONFIG_PATH);
+        $outputPath = (string)$input->getArgument(self::ARG_OUTPUT_PATH);
     }
 }

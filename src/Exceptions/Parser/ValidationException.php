@@ -2,9 +2,7 @@
 
 namespace BenRowan\VCsvStream\Exceptions;
 
-use Exception;
-
-class VCsvStreamException extends Exception
+class ValidationException extends ParserException
 {
 
 }
