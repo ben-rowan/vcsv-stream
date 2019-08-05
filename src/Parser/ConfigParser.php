@@ -7,8 +7,6 @@ use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 use BenRowan\VCsvStream\Factory\Parser\Validate\ConfigValidatorFactory;
 use BenRowan\VCsvStream\Factory\RowFactoryInterface;
 use BenRowan\VCsvStream\Parser\Validator\ConfigValidator;
-use BenRowan\VCsvStream\Row\Header;
-use BenRowan\VCsvStream\Row\Record;
 use BenRowan\VCsvStream\Row\RowInterface;
 
 class ConfigParser
@@ -34,11 +32,11 @@ class ConfigParser
     ];
 
     /**
-     * @var Header
+     * @var RowInterface
      */
     private $header;
     /**
-     * @var Record[]
+     * @var RowInterface[]
      */
     private $records = [];
     /**
@@ -88,9 +86,9 @@ class ConfigParser
     /**
      * Get the built header.
      *
-     * @return Header
+     * @return RowInterface
      */
-    public function getHeader(): Header
+    public function getHeader(): RowInterface
     {
         return $this->header;
     }
@@ -98,7 +96,7 @@ class ConfigParser
     /**
      * Get the built records.
      *
-     * @return Record[]
+     * @return RowInterface[]
      */
     public function getRecords(): array
     {
@@ -197,7 +195,7 @@ class ConfigParser
                 $this->validator->validateFakerColumn($column);
 
                 $formatter = (string)$column[self::KEY_FORMATTER];
-                $isUnique  = (bool)$column[self::KEY_UNIQUE] ?? false;
+                $isUnique  = (bool)($column[self::KEY_UNIQUE] ?? false);
 
                 $row->addFakerColumn($name, $formatter, $isUnique);
                 break;
