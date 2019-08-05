@@ -255,6 +255,6 @@ This defines the number of rows that should be created using this set of config.
 #### `columns`
 
 This defines a set of override data generators. If we don't define
-a column here then the previously defined default header data generator will be used.
+a column here then the previously defined default header data generator will be used instead.
 
 Note: the column names here _must_ match one of the header columns.
