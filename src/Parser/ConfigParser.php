@@ -124,6 +124,7 @@ class ConfigParser
         $this->header = $this->rowFactory->createHeader($include);
 
         if (false === isset($header[self::KEY_COLUMNS])) {
+            $this->header->markRowRendered();
             return;
         }
 

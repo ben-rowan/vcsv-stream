@@ -7,7 +7,7 @@ use BenRowan\VCsvStream\Parser\Validator\HeaderValidator;
 use BenRowan\VCsvStream\Parser\Validator\ValidatorInterface;
 use BenRowan\VCsvStream\Tests\Small\Parser\Validator\AbstractValidatorTest;
 
-class HeaderValidatorTest extends AbstractValidatorTest
+class WithoutColumnsTest extends AbstractValidatorTest
 {
     protected function getClass(): ValidatorInterface
     {
