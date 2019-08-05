@@ -1,6 +1,6 @@
 # vcsv://stream
 
-A virtual CSV stream for creating CSV fixtures for unit / integration testing.
+A virtual CSV stream for creating unit / integration test fixtures.
 
 ## Install
 
@@ -8,14 +8,14 @@ A virtual CSV stream for creating CSV fixtures for unit / integration testing.
 composer require --dev ben-rowan/vcsv-stream
 ```
 
-You can generate CSV fixtures in two ways with vcsv://stream; online and offline:
+## Modes
 
----- benefits of defining fixtures in yaml over as CSVs ----
+You can generate CSV fixtures in two modes with vcsv://stream, online and offline:
 
-## Online
+### Online
 
 You can use vcsv://stream as a direct replacement for your standard file stream. In this mode
-vcsv://stream will dynamically generate fake CSV data based on your configuration.
+vcsv://stream will dynamically generate fake CSV data based on the provided configuration.
 
 pros:
 * Fast test development / feedback loop.
@@ -25,7 +25,7 @@ pros:
 cons:
 * Higher CPU and memory utilisation when generating large files (I'll see if I can reduce this!)
 
-## Offline
+### Offline
 
 You can also use vcsv://stream to generate a CSV fixture on disk. You can then use this later in
 your test.
@@ -112,7 +112,10 @@ vendor/bin/vcsv generate:csv path/to/config.yaml > some_fixture.csv
 
 
 
+## Configuration
 
+
+---- benefits of defining fixtures in yaml over as CSVs ----
 
 
 
