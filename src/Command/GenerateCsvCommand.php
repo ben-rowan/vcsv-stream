@@ -66,7 +66,7 @@ class GenerateCsvCommand extends Command
      * @throws ParserException
      * @throws ValidationException
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $configPath = (string)$input->getArgument(self::ARG_CONFIG_PATH);
 

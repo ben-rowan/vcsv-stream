@@ -9,7 +9,9 @@ use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 abstract class AbstractValidatorTest extends AbstractTestCase
 {
     abstract protected function getClass(): ValidatorInterface;
+
     abstract protected function getValidConfig(): array;
+
     abstract protected function getSection(): string;
 
     /**
@@ -53,7 +55,7 @@ abstract class AbstractValidatorTest extends AbstractTestCase
      * @test
      *
      * @param string $key
-     * @param        $value
+     * @param mixed  $value
      *
      * @throws ValidationException
      *

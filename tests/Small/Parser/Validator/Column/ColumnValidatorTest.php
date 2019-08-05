@@ -7,7 +7,7 @@ use BenRowan\VCsvStream\Parser\Validator\Column\ColumnValidator;
 use BenRowan\VCsvStream\Parser\Validator\ValidatorInterface;
 use BenRowan\VCsvStream\Tests\Small\Parser\Validator\AbstractValidatorTest;
 
-class RecordValidatorTest extends AbstractValidatorTest
+class ColumnValidatorTest extends AbstractValidatorTest
 {
     protected function getClass(): ValidatorInterface
     {
