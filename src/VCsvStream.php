@@ -2,10 +2,17 @@
 
 namespace BenRowan\VCsvStream;
 
+use BenRowan\VCsvStream\Exceptions\Parser\ParserException;
+use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
+use BenRowan\VCsvStream\Factory\Parser\ConfigParserFactory;
 use BenRowan\VCsvStream\Generator\GeneratorFactory;
+use BenRowan\VCsvStream\Parser\ConfigParser;
+use BenRowan\VCsvStream\Parser\File\YamlParser;
 use BenRowan\VCsvStream\Row\RowInterface;
-use BenRowan\VCsvStream\Stream;
+use BenRowan\VCsvStream\Stream\Config;
+use BenRowan\VCsvStream\Stream\File;
+use BenRowan\VCsvStream\Stream\State;
 
 class VCsvStream
 {
@@ -13,16 +20,22 @@ class VCsvStream
      * @var Stream\File
      */
     private static $file;
-
     /**
      * @var Stream\Config
      */
     private static $config;
-
     /**
      * @var Stream\State
      */
     private static $state;
+    /**
+     * @var YamlParser
+     */
+    private static $yamlParser;
+    /**
+     * @var ConfigParser
+     */
+    private static $configParser;
 
     /**
      * Initialise VCsvStream.
@@ -33,9 +46,11 @@ class VCsvStream
      */
     public static function setup(array $config = []): void
     {
-        self::$file   = new Stream\File();
-        self::$config = new Stream\Config($config);
-        self::$state  = new Stream\State();
+        self::$file         = new File();
+        self::$config       = new Config($config);
+        self::$state        = new State();
+        self::$yamlParser   = new YamlParser();
+        self::$configParser = (new ConfigParserFactory())->create();
 
         GeneratorFactory::setup();
 
@@ -100,5 +115,21 @@ class VCsvStream
     public static function addRecords(array $records): void
     {
         self::$state->addRecords($records);
+    }
+
+    /**
+     * @param string $configPath
+     *
+     * @throws ParserException
+     * @throws ValidationException
+     */
+    public static function loadYamlConfig(string $configPath): void
+    {
+        $config = self::$yamlParser->parse($configPath);
+
+        self::$configParser->parse($config);
+
+        self::setHeader(self::$configParser->getHeader());
+        self::addRecords(self::$configParser->getRecords());
     }
 }

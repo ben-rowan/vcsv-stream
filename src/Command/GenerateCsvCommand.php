@@ -69,12 +69,8 @@ class GenerateCsvCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         $configPath = (string)$input->getArgument(self::ARG_CONFIG_PATH);
-        $config     = $this->yamlParser->parse($configPath);
 
-        $this->configParser->parse($config);
-
-        VCsvStream::setHeader($this->configParser->getHeader());
-        VCsvStream::addRecords($this->configParser->getRecords());
+        VCsvStream::loadYamlConfig($configPath);
 
         // Generate and output one line at a time to reduce memory consumption
 
