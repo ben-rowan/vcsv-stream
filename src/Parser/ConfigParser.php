@@ -2,14 +2,14 @@
 
 namespace BenRowan\VCsvStream\Parser;
 
+use BenRowan\VCsvStream\Exceptions\Parser\ParserException;
 use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\ConfigValidatorFactory;
-use BenRowan\VCsvStream\Factory\RowFactory;
 use BenRowan\VCsvStream\Factory\RowFactoryInterface;
 use BenRowan\VCsvStream\Parser\Validator\ConfigValidator;
 use BenRowan\VCsvStream\Row\Header;
 use BenRowan\VCsvStream\Row\Record;
-use Symfony\Component\Yaml\Yaml;
+use BenRowan\VCsvStream\Row\RowInterface;
 
 class ConfigParser
 {
@@ -25,12 +25,12 @@ class ConfigParser
 
     public const COL_TYPE_VALUE = 'value';
     public const COL_TYPE_FAKER = 'faker';
-    public const COL_TYPE_TEXT = 'text';
+    public const COL_TYPE_TEXT  = 'text';
 
     public const COL_TYPES = [
         self::COL_TYPE_VALUE,
         self::COL_TYPE_FAKER,
-        self::COL_TYPE_TEXT
+        self::COL_TYPE_TEXT,
     ];
 
     /**
@@ -42,11 +42,15 @@ class ConfigParser
      */
     private $records = [];
     /**
+     * @var string[]
+     */
+    private $validNames = [];
+    /**
      * @var ConfigValidator
      */
     private $validator;
     /**
-     * @var RowFactory
+     * @var RowFactoryInterface
      */
     private $rowFactory;
 
@@ -57,23 +61,21 @@ class ConfigParser
     {
         $this->validator  = $configValidatorFactory->create();
         $this->rowFactory = $rowFactory;
-
-        $this->header  = $this->rowFactory->createHeader(true);
-        $this->records = [$this->rowFactory->createRecord(10)];
-
-
     }
 
     /**
-     * @param string $configPath
+     * @param array $config
      *
      * @throws ValidationException
      */
-    public function parse(string $configPath): void
+    public function parse(array $config): void
     {
-        $config = Yaml::parseFile($configPath);
+        $this->reset();
 
-        $this->parseRoot($config);
+        $this->validator->validateRoot($config);
+
+        $this->parseHeader($config[self::KEY_HEADER]);
+        $this->parseRecords($config[self::KEY_RECORDS]);
     }
 
     /**
@@ -97,32 +99,105 @@ class ConfigParser
     }
 
     /**
-     * @param array $config
+     * @param array $header
      *
      * @throws ValidationException
      */
-    private function parseRoot(array $config): void
+    private function parseHeader(array $header): void
     {
-        $this->validator->validateRoot($config);
+        $this->validator->validateHeader($header);
+
+        $include = (bool)$header[self::KEY_INCLUDE];
+        $columns = $header[self::KEY_COLUMNS];
+
+        $this->header = $this->rowFactory->createHeader($include);
+
+        foreach ($columns as $name => $column) {
+            $this->addValidName($name);
+
+            $this->parseColumn($this->header, $name, $column);
+        }
     }
 
-    private function parseHeader(): void
+    private function parseRecords(array $records): void
     {
-
+        foreach ($records as $record) {
+            $this->parseRecord($record);
+        }
     }
 
-    private function parseRows(): void
+    private function parseRecord(array $record): void
     {
+        $this->validator->validateRecord($record);
 
+        $count   = (int)$record[self::KEY_COUNT];
+        $columns = $record[self::KEY_COLUMNS];
+
+        $record = $this->rowFactory->createRecord($count);
+
+        foreach ($columns as $name => $column) {
+            $this->assertIsValidName($name);
+
+            $this->parseColumn($record, $name, $column);
+        }
+
+        $this->records[] = $record;
     }
 
-    private function parseRow(): void
+    /**
+     * @param RowInterface $row
+     * @param string       $name
+     * @param array        $column
+     *
+     * @throws ValidationException
+     */
+    private function parseColumn(RowInterface $row, string $name, array $column): void
     {
+        $this->validator->validateColumn($column);
 
+        $type = (string)$column[self::KEY_TYPE];
+
+        switch ($type) {
+            case self::COL_TYPE_TEXT:
+                $row->addColumn($name);
+                break;
+            case self::COL_TYPE_VALUE:
+                $this->validator->validateValueColumn($column);
+
+                $row->addValueColumn($name, $column[self::KEY_VALUE]);
+                break;
+            case self::COL_TYPE_FAKER:
+                $this->validator->validateFakerColumn($column);
+
+                $formatter = (string)$column[self::KEY_FORMATTER];
+                $isUnique  = (bool)$column[self::KEY_UNIQUE] ?? false;
+
+                $row->addFakerColumn($name, $formatter, $isUnique);
+                break;
+        }
     }
 
-    private function parseColumn(): void
+    private function reset(): void
     {
+        unset($this->header);
 
+        $this->records    = [];
+        $this->validNames = [];
+    }
+
+    private function addValidName(string $name): void
+    {
+        $this->validNames[$name] = $name;
+    }
+
+    private function assertIsValidName(string $name): void
+    {
+        if (true === isset($this->validNames[$name])) {
+            return;
+        }
+
+        throw new ParserException(
+            "Column name '$name' wasn't included in the '" . self::KEY_HEADER . "' section"
+        );
     }
 }
