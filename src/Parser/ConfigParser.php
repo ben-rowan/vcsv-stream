@@ -4,7 +4,7 @@ namespace BenRowan\VCsvStream\Parser;
 
 use BenRowan\VCsvStream\Exceptions\Parser\ParserException;
 use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
-use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\ConfigValidatorFactory;
+use BenRowan\VCsvStream\Factory\Parser\Validate\ConfigValidatorFactory;
 use BenRowan\VCsvStream\Factory\RowFactoryInterface;
 use BenRowan\VCsvStream\Parser\Validator\ConfigValidator;
 use BenRowan\VCsvStream\Row\Header;
