@@ -13,8 +13,9 @@ class VCsvStreamTest extends TestCase
 {
     private const FIXTURE_DIR = __DIR__ . '/../Assets/Fixtures/VCsvStream';
 
-    public const FIXTURE_WITH_HEADER = self::FIXTURE_DIR . '/with_header.yaml';
-    public const FIXTURE_NO_HEADER   = self::FIXTURE_DIR . '/no_header.yaml';
+    public const FIXTURE_WITH_HEADER       = self::FIXTURE_DIR . '/with_header.yaml';
+    public const FIXTURE_NO_HEADER         = self::FIXTURE_DIR . '/no_header.yaml';
+    public const FIXTURE_NO_HEADER_COLUMNS = self::FIXTURE_DIR . '/no_header_columns.yaml';
 
     /**
      * @throws VCsvStreamException
@@ -64,7 +65,23 @@ class VCsvStreamTest extends TestCase
         $this->assertCount(0, $rows);
     }
 
-    // iCanHaveNoHeaderColumns
+    /**
+     * @test
+     *
+     * @throws ParserException
+     * @throws ValidationException
+     */
+    public function iCanGenerateACsvWithNoHeaderColumns(): void
+    {
+        VCsvStream::loadConfig(self::FIXTURE_NO_HEADER_COLUMNS);
 
-    // iCanHaveNoRecords
+        $vCsv = new SplFileObject('vcsv://fixture.csv');
+
+        $rows = [];
+        while ($row = $vCsv->fgetcsv()) {
+            $rows[] = $row;
+        }
+
+        $this->assertCount(0, $rows);
+    }
 }

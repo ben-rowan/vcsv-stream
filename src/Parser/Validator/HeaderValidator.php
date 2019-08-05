@@ -44,7 +44,10 @@ class HeaderValidator extends AbstractValidator
      */
     private function validateColumns(array $config): void
     {
-        $this->assertIsset(self::SECTION, ConfigParser::KEY_COLUMNS, $config);
+        if (false === isset($config[ConfigParser::KEY_COLUMNS])) {
+            return;
+        }
+
         $this->assertIsArray(ConfigParser::KEY_COLUMNS, $config);
     }
 }

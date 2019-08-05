@@ -120,9 +120,14 @@ class ConfigParser
         $this->validator->validateHeader($header);
 
         $include = (bool)$header[self::KEY_INCLUDE];
-        $columns = $header[self::KEY_COLUMNS];
 
         $this->header = $this->rowFactory->createHeader($include);
+
+        if (false === isset($header[self::KEY_COLUMNS])) {
+            return;
+        }
+
+        $columns = $header[self::KEY_COLUMNS];
 
         foreach ($columns as $name => $column) {
             $this->addValidColumnName($name);

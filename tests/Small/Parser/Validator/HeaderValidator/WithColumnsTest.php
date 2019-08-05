@@ -1,12 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Tests\Small\Parser\Validator;
+namespace BenRowan\VCsvStream\Tests\Small\Parser\Validator\HeaderValidator;
 
 use BenRowan\VCsvStream\Parser\ConfigParser;
 use BenRowan\VCsvStream\Parser\Validator\HeaderValidator;
 use BenRowan\VCsvStream\Parser\Validator\ValidatorInterface;
+use BenRowan\VCsvStream\Tests\Small\Parser\Validator\AbstractValidatorTest;
 
-class HeaderValidatorTest extends AbstractValidatorTest
+class WithColumnsTest extends AbstractValidatorTest
 {
     protected function getClass(): ValidatorInterface
     {
@@ -30,7 +31,6 @@ class HeaderValidatorTest extends AbstractValidatorTest
     {
         return [
             [ConfigParser::KEY_INCLUDE],
-            [ConfigParser::KEY_COLUMNS],
         ];
     }
 
