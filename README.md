@@ -2,11 +2,47 @@
 
 A virtual CSV stream for creating CSV fixtures for unit / integration testing.
 
+## Install
+
+```bash
+composer require --dev ben-rowan/vcsv-stream
+```
+
+You can generate CSV fixtures in two ways with vcsv://stream; online and offline:
+
+---- benefits of defining fixtures in yaml over as CSVs ----
+
+## Online
+
+You can use vcsv://stream as a direct replacement for your standard file stream. In this mode
+vcsv://stream will dynamically generate fake CSV data based on your configuration.
+
+pros:
+* Fast test development / feedback loop.
+* Each test run get's a different set of valid data. This means you have the chance to catch
+  unexpected bugs in your code.
+  
+cons:
+* Higher CPU and memory utilisation when generating large files (I'll see if I can reduce this!)
+
+## Offline
+
+You can also use vcsv://stream to generate a CSV fixture on disk. You can then use this later in
+your test.
+
+pros:
+* Fast test execution with reduced CPU and memory load.
+
+cons:
+* Slower test development / feedback loop.
+* Each test run get's the same data reducing the scope of your testing.
+
 ## Usage
 
-### Setup
+### Online
 
-In `setUp` call `VCsvStream::setup()` to initialise and register the stream wrapper.
+The first step is to call vcsv://streams setup method in your test. This initialises and
+registers the stream:
 
 ```php
 /**
@@ -17,6 +53,69 @@ public function setUp()
     VCsvStream::setup();
 }
 ```
+
+Next you load your configuration (see [here]() for config docs):
+
+```php
+/**
+ * @test
+ *
+ * @throws ValidationException
+ * @throws ParserException
+ */
+public function iCanTestSomething(): void
+{
+    VCsvStream::loadConfig('path/to/config.yaml');
+
+    // ...
+}
+```
+
+And finally you can use the stream as you would any standard file stream:
+
+```php
+/**
+ * @test
+ *
+ * @throws ValidationException
+ * @throws ParserException
+ */
+public function iCanTestSomething(): void
+{
+    VCsvStream::loadConfig('path/to/config.yaml');
+
+    $vCsv = new SplFileObject('vcsv://fixture.csv');
+
+    // ...
+}
+```
+
+### Offline
+
+vcsv://stream provides a command to make this simple:
+
+```bash
+vendor/bin/vcsv generate:csv path/to/config.yaml
+```
+
+This will output a CSV to `stdout` so you can easily see what's being generated. Once you're
+happy you can dump this to a file:
+
+```bash
+vendor/bin/vcsv generate:csv path/to/config.yaml > some_fixture.csv
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Header
 
