@@ -105,4 +105,14 @@ class VCsvStreamWrapper
     {
         return VCsvStream::getFile()->stat();
     }
+
+    /**
+     * Returns some fake stats for the CSV file.
+     *
+     * @return array
+     */
+    public function stream_stat(): array
+    {
+        return VCsvStream::getFile()->stat();
+    }
 }
