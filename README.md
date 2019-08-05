@@ -183,16 +183,16 @@ When set to `true` the CSV will include a header. When set to `false` it wont.
 #### `columns`
 
 This is how we tell vcsv://stream how many columns we'd like to give our CSV and how to generate
-data for those columns.
+data for those columns by default.
  
-The name provided for each column will become the column headers if this is enabled. The names must
+The name provided for each column will become the columns header if this is enabled. The names must
 be unique.
 
 ```yaml
 header:
   columns:
     "Column Name":  # <-- column name
-      type: text   # <-- column data generation config
+      type: text    # <-- column data generation config
 ```
 
 vcsv://stream can generate data in three ways:
@@ -221,8 +221,7 @@ You can randomly generate data using one of the
 ```
 
 By setting `unique` to `true` we're telling [Faker](https://github.com/fzaninotto/Faker)
-that we don't want this column to contain any duplicate data for as many rows as this
-config section applies to.
+that we don't want this column to contain any duplicate data.
 
 #### `text` Columns
 
@@ -235,8 +234,27 @@ You can also tell vcsv://stream that you'd just like the column to contain lorem
 
 ### `records`
 
-#### Name
+This defines the actual CSV data. We define the data in 'chunks' meaning we can vary the
+data throughout the file. Each record has a name, this should be something that helps you
+remember why it was created.
+
+```yaml
+records:
+  "Record One":     # <-- record name
+    count: 10       # <-- number of rows to generate with this config
+    columns:
+      "Column Two": # <-- override the data generator for 'Column Two'
+        type: value
+        value: 2
+```
 
 #### `count`
 
+This defines the number of rows that should be created using this set of config.
+
 #### `columns`
+
+This defines a set of override data generators for the columns. If we don't define
+a column here then the previously configured default header generator will be used.
+
+Note: the column names here _must_ match one of the header columns.
