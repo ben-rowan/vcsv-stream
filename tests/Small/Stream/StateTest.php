@@ -2,21 +2,25 @@
 
 namespace BenRowan\VCsvStream\Tests\Small\Stream;
 
+use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
+use BenRowan\VCsvStream\Row\Header;
+use BenRowan\VCsvStream\Row\Record;
+use BenRowan\VCsvStream\Stream\State;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 
 class StateTest extends AbstractTestCase
 {
-    public function setUp()
-    {
-        $this->markTestSkipped('This needs testing');
-    }
-
     /**
      * @test
      */
     public function iCanSetAndGetHeader(): void
     {
+        $state  = $this->getClass();
+        $header = new Header();
 
+        $state->setHeader($header);
+
+        $this->assertSame($header, $state->getHeader());
     }
 
     /**
@@ -24,7 +28,9 @@ class StateTest extends AbstractTestCase
      */
     public function iCanTellWhenAHeaderIsNotSet(): void
     {
+        $state = $this->getClass();
 
+        $this->assertFalse($state->hasHeader());
     }
 
     /**
@@ -32,23 +38,35 @@ class StateTest extends AbstractTestCase
      */
     public function iCanTellWhenAHeaderIsSet(): void
     {
+        $state  = $this->getClass();
+        $header = new Header();
 
+        $state->setHeader($header);
+
+        $this->assertTrue($state->hasHeader());
     }
 
     /**
      * @test
-     */
-    public function iCanAddAndGetARecord(): void
-    {
-
-    }
-
-    /**
-     * @test
+     *
+     * @throws VCsvStreamException
      */
     public function iCanAddAndGetMultipleRecords(): void
     {
+        $state     = $this->getClass();
+        $recordOne = new Record(10);
+        $recordTwo = new Record(10);
 
+        $state->addRecords(
+            [
+                $recordOne,
+                $recordTwo,
+            ]
+        );
+
+        $this->assertSame($recordOne, $state->currentRecord());
+        $state->nextRecord();
+        $this->assertSame($recordTwo, $state->currentRecord());
     }
 
     /**
@@ -56,7 +74,9 @@ class StateTest extends AbstractTestCase
      */
     public function iCanTellWhenARecordHasNotBeenAdded(): void
     {
+        $state = $this->getClass();
 
+        $this->assertFalse($state->hasRecords());
     }
 
     /**
@@ -64,6 +84,20 @@ class StateTest extends AbstractTestCase
      */
     public function iCanTellWhenARecordHasBeenAdded(): void
     {
+        $state     = $this->getClass();
+        $recordOne = new Record(10);
 
+        $state->addRecords(
+            [
+                $recordOne,
+            ]
+        );
+
+        $this->assertTrue($state->hasRecords());
+    }
+
+    private function getClass(): State
+    {
+        return new State();
     }
 }
