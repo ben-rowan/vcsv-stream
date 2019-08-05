@@ -95,7 +95,7 @@ class VCsvStream
      * @throws ParserException
      * @throws ValidationException
      */
-    public static function loadYamlConfig(string $configPath): void
+    public static function loadConfig(string $configPath): void
     {
         $config = self::$yamlParser->parse($configPath);
 

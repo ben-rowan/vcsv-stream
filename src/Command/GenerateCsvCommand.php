@@ -70,7 +70,7 @@ class GenerateCsvCommand extends Command
     {
         $configPath = (string)$input->getArgument(self::ARG_CONFIG_PATH);
 
-        VCsvStream::loadYamlConfig($configPath);
+        VCsvStream::loadConfig($configPath);
 
         // Generate and output one line at a time to reduce memory consumption
 

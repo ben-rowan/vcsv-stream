@@ -25,8 +25,6 @@ class VCsvStreamTest extends TestCase
     }
 
     /**
-     * Run the code...
-     *
      * @test
      *
      * @throws ValidationException
@@ -34,7 +32,7 @@ class VCsvStreamTest extends TestCase
      */
     public function iCanGenerateACsvWithAHeader(): void
     {
-        VCsvStream::loadYamlConfig(self::FIXTURE_WITH_HEADER);
+        VCsvStream::loadConfig(self::FIXTURE_WITH_HEADER);
 
         $vCsv = new SplFileObject('vcsv://fixture.csv');
 
@@ -43,12 +41,10 @@ class VCsvStreamTest extends TestCase
             $rows[] = $row;
         }
 
-        $this->assertCount(10021, $rows);
+        $this->assertCount(1, $rows);
     }
 
     /**
-     * Run the code...
-     *
      * @test
      *
      * @throws ValidationException
@@ -56,7 +52,7 @@ class VCsvStreamTest extends TestCase
      */
     public function iCanGenerateACsvWithoutAHeader(): void
     {
-        VCsvStream::loadYamlConfig(self::FIXTURE_NO_HEADER);
+        VCsvStream::loadConfig(self::FIXTURE_NO_HEADER);
 
         $vCsv = new SplFileObject('vcsv://fixture.csv');
 
@@ -65,7 +61,7 @@ class VCsvStreamTest extends TestCase
             $rows[] = $row;
         }
 
-        $this->assertCount(10020, $rows);
+        $this->assertCount(0, $rows);
     }
 
     // iCanHaveNoHeaderColumns

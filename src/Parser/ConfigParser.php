@@ -80,6 +80,11 @@ class ConfigParser
         $this->validator->validateRoot($config);
 
         $this->parseHeader($config[self::KEY_HEADER]);
+
+        if (false === isset($config[self::KEY_RECORDS])) {
+            return;
+        }
+
         $this->parseRecords($config[self::KEY_RECORDS]);
     }
 

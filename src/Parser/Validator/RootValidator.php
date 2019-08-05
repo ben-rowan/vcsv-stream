@@ -44,7 +44,10 @@ class RootValidator extends AbstractValidator
      */
     private function validateRecords(array $config): void
     {
-        $this->assertIsset(self::SECTION, ConfigParser::KEY_RECORDS, $config);
+        if (false === isset($config[ConfigParser::KEY_RECORDS])) {
+            return;
+        }
+
         $this->assertIsArray(ConfigParser::KEY_RECORDS, $config);
     }
 }
