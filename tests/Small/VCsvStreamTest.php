@@ -2,19 +2,19 @@
 
 namespace BenRowan\VCsvStream\Tests\Small;
 
+use BenRowan\VCsvStream\Exceptions\Parser\ParserException;
+use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 use BenRowan\VCsvStream\Exceptions\VCsvStreamException;
-use BenRowan\VCsvStream\Row\Header;
-use BenRowan\VCsvStream\Row\NoHeader;
-use BenRowan\VCsvStream\Row\Record;
 use BenRowan\VCsvStream\VCsvStream;
 use PHPUnit\Framework\TestCase;
 use SplFileObject;
 
 class VCsvStreamTest extends TestCase
 {
-    public const HEADER_1 = 'Column One';
-    public const HEADER_2 = 'Column Two';
-    public const HEADER_3 = 'Column Three';
+    private const FIXTURE_DIR = __DIR__ . '/../Assets/fixtures/VCsvStream';
+
+    public const FIXTURE_WITH_HEADER = self::FIXTURE_DIR . '/with_header.yaml';
+    public const FIXTURE_NO_HEADER   = self::FIXTURE_DIR . '/no_header.yaml';
 
     /**
      * @throws VCsvStreamException
@@ -28,26 +28,13 @@ class VCsvStreamTest extends TestCase
      * Run the code...
      *
      * @test
+     *
+     * @throws ValidationException
+     * @throws ParserException
      */
-    public function iCanGetDataFromStream(): void
+    public function iCanGenerateACsvWithAHeader(): void
     {
-        $this->withHeader();
-
-        $records = [];
-
-        $records[] = (new Record(10))
-            ->addValueColumn(self::HEADER_2, 2)
-            ->addFakerColumn(self::HEADER_3, 'randomNumber', false);
-
-        $records[] = (new Record(10))
-            ->addValueColumn(self::HEADER_2, 3)
-            ->addFakerColumn(self::HEADER_3, 'text', false);
-
-        $records[] = (new Record(10000))
-            ->addValueColumn(self::HEADER_2, 4)
-            ->addFakerColumn(self::HEADER_3, 'ipv4', false);
-
-        VCsvStream::addRecords($records);
+        VCsvStream::loadYamlConfig(self::FIXTURE_WITH_HEADER);
 
         $vCsv = new SplFileObject('vcsv://fixture.csv');
 
@@ -63,26 +50,13 @@ class VCsvStreamTest extends TestCase
      * Run the code...
      *
      * @test
+     *
+     * @throws ValidationException
+     * @throws ParserException
      */
-    public function iCanGetDataFromStreamWithNoHeader(): void
+    public function iCanGenerateACsvWithoutAHeader(): void
     {
-        $this->withoutHeader();
-
-        $records = [];
-
-        $records[] = (new Record(10))
-            ->addValueColumn(self::HEADER_2, 2)
-            ->addFakerColumn(self::HEADER_3, 'randomNumber', false);
-
-        $records[] = (new Record(10))
-            ->addValueColumn(self::HEADER_2, 3)
-            ->addFakerColumn(self::HEADER_3, 'text', false);
-
-        $records[] = (new Record(10000))
-            ->addValueColumn(self::HEADER_2, 4)
-            ->addFakerColumn(self::HEADER_3, 'ipv4', false);
-
-        VCsvStream::addRecords($records);
+        VCsvStream::loadYamlConfig(self::FIXTURE_NO_HEADER);
 
         $vCsv = new SplFileObject('vcsv://fixture.csv');
 
@@ -92,29 +66,5 @@ class VCsvStreamTest extends TestCase
         }
 
         $this->assertCount(10020, $rows);
-    }
-
-    private function withHeader(): void
-    {
-        $header = new Header();
-
-        $header
-            ->addValueColumn(self::HEADER_1, 1)
-            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
-            ->addColumn(self::HEADER_3);
-
-        VCsvStream::setHeader($header);
-    }
-
-    private function withoutHeader(): void
-    {
-        $header = new NoHeader();
-
-        $header
-            ->addValueColumn(self::HEADER_1, 1)
-            ->addFakerColumn(self::HEADER_2, 'randomNumber', true)
-            ->addColumn(self::HEADER_3);
-
-        VCsvStream::setHeader($header);
     }
 }

@@ -1,0 +1,45 @@
+# This CSV is used to test for X, Y and Z
+
+header:
+  include: false
+  columns:
+    "Column One":
+      type: value
+      value: 1
+    "Column Two":
+      type: faker
+      formatter: randomNumber
+      unique: true
+    "Column Three":
+      type: text
+records:
+  "Record One":
+    count: 10
+    columns:
+      "Column Two":
+        type: value
+        value: 2
+      "Column Three":
+        type: faker
+        formatter: randomNumber
+        unique: false
+  # This record is important for some reason
+  "Record Two":
+    count: 10
+    columns:
+      "Column Two":
+        type: value
+        value: 3
+      "Column Three":
+        type: faker
+        formatter: text
+        unique: false
+  "Record Three":
+    count: 10000
+    columns:
+      "Column Two":
+        type: value
+        value: 4
+      "Column Three":
+        type: faker
+        formatter: ipv4

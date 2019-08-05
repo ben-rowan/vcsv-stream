@@ -17,15 +17,15 @@ use BenRowan\VCsvStream\Stream\State;
 class VCsvStream
 {
     /**
-     * @var Stream\File
+     * @var File
      */
     private static $file;
     /**
-     * @var Stream\Config
+     * @var Config
      */
     private static $config;
     /**
-     * @var Stream\State
+     * @var State
      */
     private static $state;
     /**
