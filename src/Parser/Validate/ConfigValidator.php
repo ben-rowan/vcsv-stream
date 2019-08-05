@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Parser\Validate\Yaml;
+namespace BenRowan\VCsvStream\Parser\Validate;
 
-use BenRowan\VCsvStream\Exceptions\ValidationException;
+use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 
-class YamlValidator
+class ConfigValidator
 {
     /**
      * @var RootValidator

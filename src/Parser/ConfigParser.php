@@ -2,19 +2,19 @@
 
 namespace BenRowan\VCsvStream\Parser;
 
-use BenRowan\VCsvStream\Exceptions\ValidationException;
-use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\YamlValidatorFactory;
+use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
+use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\ConfigValidatorFactory;
 use BenRowan\VCsvStream\Factory\RowFactory;
 use BenRowan\VCsvStream\Factory\RowFactoryInterface;
-use BenRowan\VCsvStream\Parser\Validate\Yaml\YamlValidator;
+use BenRowan\VCsvStream\Parser\Validate\ConfigValidator;
 use BenRowan\VCsvStream\Row\Header;
 use BenRowan\VCsvStream\Row\Record;
 use Symfony\Component\Yaml\Yaml;
 
-class YamlParser
+class ConfigParser
 {
     public const KEY_HEADER    = 'header';
-    public const KEY_ROWS      = 'rows';
+    public const KEY_RECORDS   = 'records';
     public const KEY_INCLUDE   = 'include';
     public const KEY_COLUMNS   = 'columns';
     public const KEY_TYPE      = 'type';
@@ -32,7 +32,7 @@ class YamlParser
      */
     private $records = [];
     /**
-     * @var YamlValidator
+     * @var ConfigValidator
      */
     private $validator;
     /**
@@ -41,11 +41,11 @@ class YamlParser
     private $rowFactory;
 
     public function __construct(
-        YamlValidatorFactory $validatorFactory,
+        ConfigValidatorFactory $configValidatorFactory,
         RowFactoryInterface $rowFactory
     )
     {
-        $this->validator  = $validatorFactory->create();
+        $this->validator  = $configValidatorFactory->create();
         $this->rowFactory = $rowFactory;
 
         $this->header  = $this->rowFactory->createHeader(true);

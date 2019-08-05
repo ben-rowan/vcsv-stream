@@ -12,8 +12,8 @@ header:
       unique: true
     "Column Three":
       type: text
-rows:
-  "Row One":
+records:
+  "Record One":
     count: 10
     columns:
       "Column Two":
@@ -23,8 +23,8 @@ rows:
         type: faker
         formatter: randomNumber
         unique: false
-  # This row is important for some reason
-  "Row Two":
+  # This record is important for some reason
+  "Record Two":
     count: 10
     columns:
       "Column Two":
@@ -34,7 +34,7 @@ rows:
         type: faker
         formatter: text
         unique: false
-  "Row Three":
+  "Record Three":
     count: 10000
     columns:
       "Column Two":

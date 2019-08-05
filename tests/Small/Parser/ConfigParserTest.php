@@ -2,18 +2,18 @@
 
 namespace BenRowan\VCsvStream\Tests\Small\Parser;
 
-use BenRowan\VCsvStream\Parser\YamlParser;
+use BenRowan\VCsvStream\Parser\ConfigParser;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 
-class YamlParserTest extends AbstractTestCase
+class ConfigParserTest extends AbstractTestCase
 {
     private const FIXTURE_DIR = __DIR__ . '/../../Assets/fixtures/Parser/YamlParser';
 
     private const FIXTURE_VALID = self::FIXTURE_DIR . '/valid.yaml';
 
-    private function getClass(): YamlParser
+    private function getClass(): ConfigParser
     {
-        return new YamlParser();
+        return new ConfigParser();
     }
 
     /**
