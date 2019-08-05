@@ -25,7 +25,7 @@ records:
         unique: false
   # This record is important for some reason
   "Record Two":
-    count: 10
+    count: 10  # This is why we chose 10
     columns:
       "Column Two":
         type: value
