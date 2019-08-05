@@ -2,8 +2,8 @@
 
 namespace BenRowan\VCsvStream\Factory\Parser\Validate\Yaml;
 
-use BenRowan\VCsvStream\Parser\Validate\RootValidator;
-use BenRowan\VCsvStream\Parser\Validate\ConfigValidator;
+use BenRowan\VCsvStream\Parser\Validator\RootValidator;
+use BenRowan\VCsvStream\Parser\Validator\ConfigValidator;
 
 class ConfigValidatorFactory
 {

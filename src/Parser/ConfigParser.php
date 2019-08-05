@@ -6,7 +6,7 @@ use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 use BenRowan\VCsvStream\Factory\Parser\Validate\Yaml\ConfigValidatorFactory;
 use BenRowan\VCsvStream\Factory\RowFactory;
 use BenRowan\VCsvStream\Factory\RowFactoryInterface;
-use BenRowan\VCsvStream\Parser\Validate\ConfigValidator;
+use BenRowan\VCsvStream\Parser\Validator\ConfigValidator;
 use BenRowan\VCsvStream\Row\Header;
 use BenRowan\VCsvStream\Row\Record;
 use Symfony\Component\Yaml\Yaml;

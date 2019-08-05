@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Parser\Validate;
+namespace BenRowan\VCsvStream\Parser\Validator;
 
 use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
 
