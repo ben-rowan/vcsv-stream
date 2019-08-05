@@ -88,36 +88,8 @@ class VCsvStream
     }
 
     /**
-     * Set the header to be rendered.
+     * Load a Yaml CSV config.
      *
-     * @param RowInterface $header
-     */
-    public static function setHeader(RowInterface $header): void
-    {
-        self::$state->setHeader($header);
-    }
-
-    /**
-     * Add a record to be rendered.
-     *
-     * @param RowInterface $record
-     */
-    public static function addRecord(RowInterface $record): void
-    {
-        self::$state->addRecord($record);
-    }
-
-    /**
-     * Add a set of records to be rendered.
-     *
-     * @param RowInterface[] $records
-     */
-    public static function addRecords(array $records): void
-    {
-        self::$state->addRecords($records);
-    }
-
-    /**
      * @param string $configPath
      *
      * @throws ParserException
@@ -131,5 +103,25 @@ class VCsvStream
 
         self::setHeader(self::$configParser->getHeader());
         self::addRecords(self::$configParser->getRecords());
+    }
+
+    /**
+     * Set the header to be rendered.
+     *
+     * @param RowInterface $header
+     */
+    private static function setHeader(RowInterface $header): void
+    {
+        self::$state->setHeader($header);
+    }
+
+    /**
+     * Add a set of records to be rendered.
+     *
+     * @param RowInterface[] $records
+     */
+    private static function addRecords(array $records): void
+    {
+        self::$state->addRecords($records);
     }
 }
