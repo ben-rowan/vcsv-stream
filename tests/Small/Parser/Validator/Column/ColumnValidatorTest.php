@@ -1,44 +1,42 @@
 <?php declare(strict_types=1);
 
-namespace BenRowan\VCsvStream\Tests\Small\Parser\Validator;
+namespace BenRowan\VCsvStream\Tests\Small\Parser\Validator\Column;
 
 use BenRowan\VCsvStream\Parser\ConfigParser;
-use BenRowan\VCsvStream\Parser\Validator\RootValidator;
+use BenRowan\VCsvStream\Parser\Validator\Column\ColumnValidator;
 use BenRowan\VCsvStream\Parser\Validator\ValidatorInterface;
+use BenRowan\VCsvStream\Tests\Small\Parser\Validator\AbstractValidatorTest;
 
-class RootValidatorTest extends AbstractValidatorTest
+class RecordValidatorTest extends AbstractValidatorTest
 {
     protected function getClass(): ValidatorInterface
     {
-        return new RootValidator();
+        return new ColumnValidator();
     }
 
     protected function getValidConfig(): array
     {
         return [
-            ConfigParser::KEY_HEADER  => [],
-            ConfigParser::KEY_RECORDS => [],
+            ConfigParser::KEY_TYPE => ConfigParser::COL_TYPE_FAKER,
         ];
     }
 
     protected function getSection(): string
     {
-        return RootValidator::SECTION;
+        return ColumnValidator::SECTION;
     }
 
     public function missingKeyDataProvider(): array
     {
         return [
-            [ConfigParser::KEY_HEADER],
-            [ConfigParser::KEY_RECORDS],
+            [ConfigParser::KEY_TYPE],
         ];
     }
 
     public function wrongTypeDataProvider(): array
     {
         return [
-            [ConfigParser::KEY_HEADER, true],
-            [ConfigParser::KEY_RECORDS, 'hello'],
+            [ConfigParser::KEY_TYPE, 'hello'],
         ];
     }
 }

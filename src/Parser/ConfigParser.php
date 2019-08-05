@@ -23,6 +23,16 @@ class ConfigParser
     public const KEY_UNIQUE    = 'unique';
     public const KEY_COUNT     = 'count';
 
+    public const COL_TYPE_VALUE = 'value';
+    public const COL_TYPE_FAKER = 'faker';
+    public const COL_TYPE_TEXT = 'text';
+
+    public const COL_TYPES = [
+        self::COL_TYPE_VALUE,
+        self::COL_TYPE_FAKER,
+        self::COL_TYPE_TEXT
+    ];
+
     /**
      * @var Header
      */

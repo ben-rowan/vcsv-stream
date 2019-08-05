@@ -10,7 +10,7 @@ class RootValidator extends AbstractValidator
     public const SECTION = 'root';
 
     /**
-     * Validate that the required root elements are set.
+     * Validate that the required root elements are set correctly.
      *
      * @param array $config
      *
@@ -20,14 +20,31 @@ class RootValidator extends AbstractValidator
      */
     public function validate(array $config): bool
     {
-        // header
-        $this->assertIsset(self::SECTION, ConfigParser::KEY_HEADER, $config);
-        $this->assertIsArray(ConfigParser::KEY_HEADER, $config);
-
-        // records
-        $this->assertIsset(self::SECTION, ConfigParser::KEY_RECORDS, $config);
-        $this->assertIsArray(ConfigParser::KEY_RECORDS, $config);
+        $this->validateHeader($config);
+        $this->validateRecords($config);
 
         return true;
+    }
+
+    /**
+     * @param array $config
+     *
+     * @throws ValidationException
+     */
+    private function validateHeader(array $config): void
+    {
+        $this->assertIsset(self::SECTION, ConfigParser::KEY_HEADER, $config);
+        $this->assertIsArray(ConfigParser::KEY_HEADER, $config);
+    }
+
+    /**
+     * @param array $config
+     *
+     * @throws ValidationException
+     */
+    private function validateRecords(array $config): void
+    {
+        $this->assertIsset(self::SECTION, ConfigParser::KEY_RECORDS, $config);
+        $this->assertIsArray(ConfigParser::KEY_RECORDS, $config);
     }
 }
