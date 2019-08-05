@@ -2,6 +2,9 @@
 
 namespace BenRowan\VCsvStream\Stream;
 
+use function function_exists;
+use function time;
+
 class File
 {
     private const FILE_USER_ROOT  = 0;
@@ -16,9 +19,9 @@ class File
 
     public function __construct()
     {
-        $this->time          = \time();
-        $this->uidFuncExists = \function_exists('posix_getuid');
-        $this->gidFuncExists = \function_exists('posix_getgid');
+        $this->time          = time();
+        $this->uidFuncExists = function_exists('posix_getuid');
+        $this->gidFuncExists = function_exists('posix_getgid');
     }
 
     /**
