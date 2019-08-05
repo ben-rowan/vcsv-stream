@@ -44,7 +44,7 @@ class ConfigParser
     /**
      * @var string[]
      */
-    private $validNames = [];
+    private $validColumnNames = [];
     /**
      * @var ConfigValidator
      */
@@ -54,12 +54,18 @@ class ConfigParser
      */
     private $rowFactory;
 
+    /**
+     * ConfigParser constructor.
+     *
+     * @param ConfigValidatorFactory $validatorFactory
+     * @param RowFactoryInterface    $rowFactory
+     */
     public function __construct(
-        ConfigValidatorFactory $configValidatorFactory,
+        ConfigValidatorFactory $validatorFactory,
         RowFactoryInterface $rowFactory
     )
     {
-        $this->validator  = $configValidatorFactory->create();
+        $this->validator  = $validatorFactory->create();
         $this->rowFactory = $rowFactory;
     }
 
@@ -67,6 +73,7 @@ class ConfigParser
      * @param array $config
      *
      * @throws ValidationException
+     * @throws ParserException
      */
     public function parse(array $config): void
     {
@@ -99,7 +106,9 @@ class ConfigParser
     }
 
     /**
-     * @param array $header
+     * Parse header config and create header.
+     *
+     * @param array $header Header config data
      *
      * @throws ValidationException
      */
@@ -113,12 +122,20 @@ class ConfigParser
         $this->header = $this->rowFactory->createHeader($include);
 
         foreach ($columns as $name => $column) {
-            $this->addValidName($name);
+            $this->addValidColumnName($name);
 
             $this->parseColumn($this->header, $name, $column);
         }
     }
 
+    /**
+     * Parse all records.
+     *
+     * @param array $records Config data for all records
+     *
+     * @throws ParserException
+     * @throws ValidationException
+     */
     private function parseRecords(array $records): void
     {
         foreach ($records as $record) {
@@ -126,6 +143,14 @@ class ConfigParser
         }
     }
 
+    /**
+     * Parse record config and create records.
+     *
+     * @param array $record Record config data
+     *
+     * @throws ParserException
+     * @throws ValidationException
+     */
     private function parseRecord(array $record): void
     {
         $this->validator->validateRecord($record);
@@ -136,7 +161,7 @@ class ConfigParser
         $record = $this->rowFactory->createRecord($count);
 
         foreach ($columns as $name => $column) {
-            $this->assertIsValidName($name);
+            $this->assertIsValidColumnName($name);
 
             $this->parseColumn($record, $name, $column);
         }
@@ -145,9 +170,11 @@ class ConfigParser
     }
 
     /**
-     * @param RowInterface $row
-     * @param string       $name
-     * @param array        $column
+     * Parse the column config and add a column to the provided row.
+     *
+     * @param RowInterface $row    Row to add a column to.
+     * @param string       $name   The name of the column
+     * @param array        $column The config for the column
      *
      * @throws ValidationException
      */
@@ -177,22 +204,33 @@ class ConfigParser
         }
     }
 
+    /**
+     * Reset the state of the parser
+     */
     private function reset(): void
     {
         unset($this->header);
 
-        $this->records    = [];
-        $this->validNames = [];
+        $this->records          = [];
+        $this->validColumnNames = [];
     }
 
-    private function addValidName(string $name): void
+    /**
+     * @param string $name Column name configured in the header section
+     */
+    private function addValidColumnName(string $name): void
     {
-        $this->validNames[$name] = $name;
+        $this->validColumnNames[$name] = $name;
     }
 
-    private function assertIsValidName(string $name): void
+    /**
+     * @param string $name Column name configured a record section
+     *
+     * @throws ParserException
+     */
+    private function assertIsValidColumnName(string $name): void
     {
-        if (true === isset($this->validNames[$name])) {
+        if (true === isset($this->validColumnNames[$name])) {
             return;
         }
 
