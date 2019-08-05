@@ -11,7 +11,7 @@ use SplFileObject;
 
 class VCsvStreamTest extends TestCase
 {
-    private const FIXTURE_DIR = __DIR__ . '/../Assets/fixtures/VCsvStream';
+    private const FIXTURE_DIR = __DIR__ . '/../Assets/Fixtures/VCsvStream';
 
     public const FIXTURE_WITH_HEADER = self::FIXTURE_DIR . '/with_header.yaml';
     public const FIXTURE_NO_HEADER   = self::FIXTURE_DIR . '/no_header.yaml';
@@ -67,4 +67,8 @@ class VCsvStreamTest extends TestCase
 
         $this->assertCount(10020, $rows);
     }
+
+    // iCanHaveNoHeaderColumns
+
+    // iCanHaveNoRecords
 }

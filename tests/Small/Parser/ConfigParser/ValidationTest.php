@@ -4,8 +4,7 @@ namespace BenRowan\VCsvStream\Tests\Small\Parser\ConfigParser;
 
 use BenRowan\VCsvStream\Exceptions\Parser\ParserException;
 use BenRowan\VCsvStream\Exceptions\Parser\ValidationException;
-use BenRowan\VCsvStream\Factory\Parser\Validate\ConfigValidatorFactory;
-use BenRowan\VCsvStream\Factory\RowFactory;
+use BenRowan\VCsvStream\Factory\Parser\ConfigParserFactory;
 use BenRowan\VCsvStream\Parser\ConfigParser;
 use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 
@@ -127,9 +126,6 @@ class ValidationTest extends AbstractTestCase
 
     private function getClass(): ConfigParser
     {
-        return new ConfigParser(
-            new ConfigValidatorFactory(),
-            new RowFactory()
-        );
+        return (new ConfigParserFactory())->create();
     }
 }

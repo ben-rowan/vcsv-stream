@@ -8,7 +8,7 @@ use BenRowan\VCsvStream\Tests\Assets\AbstractTestCase;
 
 class YamlParserTest extends AbstractTestCase
 {
-    private const FIXTURE_DIR = __DIR__ . '/../../../Assets/fixtures/Parser/File/YamlParser';
+    private const FIXTURE_DIR = __DIR__ . '/../../../Assets/Fixtures/Parser/File/YamlParser';
 
     private const FIXTURE_VALID   = self::FIXTURE_DIR . '/valid.yaml';
     private const FIXTURE_INVALID = self::FIXTURE_DIR . '/invalid.yaml';
