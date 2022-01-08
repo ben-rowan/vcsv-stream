@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<ruleset name="Doctrine Assert">
+<ruleset name="vcsv://stream">
 
-    <description>Rule set for Doctrine Assert</description>
+    <description>Rule set for vcsv://stream</description>
 
     <rule ref="rulesets/cleancode.xml" >
         <exclude name="StaticAccess"/>
